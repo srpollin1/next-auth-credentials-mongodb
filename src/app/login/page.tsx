@@ -19,7 +19,7 @@ function Signin() {
 
     if (res?.error) setError(res.error as string);
 
-    if (res?.ok) return router.push("/dashboard/profile");
+    if (res?.ok) return router.push("/dashboard/perfil");
   };
 
   return (
@@ -48,7 +48,7 @@ function Signin() {
         />
 
         <button className="bg-blue-500 text-white px-4 py-2 block w-full mt-4">
-          Signup
+          Login
         </button>
       </form>
     </div>

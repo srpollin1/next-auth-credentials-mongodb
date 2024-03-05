@@ -1,6 +1,13 @@
 import { Schema, model, models } from "mongoose";
 
-const UserSchema = new Schema(
+interface User {
+  email: string;
+  password: string;
+  fullname: string;
+  roles: string[];
+}
+
+const UserSchema = new Schema<User>(
   {
     email: {
       type: String,
@@ -18,9 +25,14 @@ const UserSchema = new Schema(
     },
     fullname: {
       type: String,
-      required: [true, "fullname is required"],
-      minLength: [3, "fullname must be at least 3 characters"],
-      maxLength: [20, "fullname must be at most 20 characters"],
+      required: [true, "Fullname is required"],
+      minLength: [3, "Fullname must be at least 3 characters"],
+      maxLength: [20, "Fullname must be at most 20 characters"],
+    },
+    roles: {
+      type: [String],
+      default: ["customer"], // Asignar "customer" por defecto
+      enum: ["customer", "master"], // Limitar los valores posibles a "customer" y "master"
     },
   },
   {
@@ -28,5 +40,5 @@ const UserSchema = new Schema(
   }
 );
 
-const User = models.User || model("User", UserSchema);
+const User = models.User || model<User>("User", UserSchema);
 export default User;
